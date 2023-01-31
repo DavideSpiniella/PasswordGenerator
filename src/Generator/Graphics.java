@@ -12,6 +12,8 @@ import javax.swing.JTextField;
 import javax.swing.SpringLayout;
 
 import lombok.Data;
+import java.awt.event.InputMethodListener;
+import java.awt.event.InputMethodEvent;
 
 @Data
 public class Graphics {
@@ -38,6 +40,7 @@ public class Graphics {
 	private JButton openbutton;
 	private JButton italianbutton;
 	private JButton englishbutton;
+	private JLabel lengthOfTheInputPassword;
 	
 	public void start() {
 		EventQueue.invokeLater(new Runnable() {
@@ -87,6 +90,7 @@ public class Graphics {
 		frame.getContentPane().add(savefilebutton);
 		
 		textField = new JTextField();
+		textField.getDocument().addDocumentListener(controller.textChangeListener(this));
 		springLayout.putConstraint(SpringLayout.WEST, textField, 193, SpringLayout.WEST, frame.getContentPane());
 		springLayout.putConstraint(SpringLayout.EAST, textField, -177, SpringLayout.EAST, frame.getContentPane());
 		springLayout.putConstraint(SpringLayout.EAST, generatedpwdlabel, -39, SpringLayout.WEST, textField);
@@ -191,5 +195,10 @@ public class Graphics {
 		springLayout.putConstraint(SpringLayout.WEST, englishbutton, 19, SpringLayout.EAST, italianbutton);
 		springLayout.putConstraint(SpringLayout.SOUTH, englishbutton, 5, SpringLayout.SOUTH, languageapplabel);
 		frame.getContentPane().add(englishbutton);
+		
+		lengthOfTheInputPassword = new JLabel(controller.getTextofInputPasswordLength());
+		springLayout.putConstraint(SpringLayout.NORTH, lengthOfTheInputPassword, 0, SpringLayout.NORTH, generatedpwdlabel);
+		springLayout.putConstraint(SpringLayout.WEST, lengthOfTheInputPassword, 6, SpringLayout.EAST, textField);
+		frame.getContentPane().add(lengthOfTheInputPassword);
 	}
 }

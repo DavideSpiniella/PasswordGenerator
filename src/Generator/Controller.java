@@ -2,6 +2,8 @@ package Generator;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.InputMethodEvent;
+import java.awt.event.InputMethodListener;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
@@ -17,6 +19,8 @@ import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 public class Controller {
@@ -287,6 +291,13 @@ public class Controller {
 		return model.getLanguage().getLanguage();
 	}
 	/**
+	 * The length of the input password
+	 * @return the string for the target component
+	 */
+	public String getTextofInputPasswordLength() {
+		return String.valueOf(model.getInputPasswordLen());
+	}
+	/**
 	 * This method change the text of the elements of the target view
 	 * @param view the Graphics object for which will be changed the texts of the elements
 	 */
@@ -307,9 +318,9 @@ public class Controller {
 		view.getLanguageapplabel().setText(getTextofLanguageLabel());
 	}
 	/**
-	 * 
+	 * The listener that changes the language of the application
 	 * @param view
-	 * @return
+	 * @return The Action listener
 	 */
 	public ActionListener englishButtonListener(Graphics view) {
 		ActionListener actionlistener = new ActionListener() {
@@ -323,6 +334,11 @@ public class Controller {
 		};
 		return actionlistener;
 	}
+	/**
+	 * The listener that changes the language of the application
+	 * @param view
+	 * @return The Action listener
+	 */
 	public ActionListener italianButtonListener(Graphics view) {
 		ActionListener actionlistener = new ActionListener() {
 			
@@ -334,6 +350,43 @@ public class Controller {
 			}
 		};
 		return actionlistener;
+	}
+	/**
+	 * The listener that change the label of the length of the input password when it is changed
+	 * @param view
+	 * @return The listener
+	 */
+	public DocumentListener textChangeListener(Graphics view) {
+		DocumentListener documentListener = new DocumentListener() {
+			
+			@Override
+			public void removeUpdate(DocumentEvent e) {
+				// Set the length of the input password when the content of the textfield changes 
+				model.setInputPasswordLen(view.getTextField().getText().length());
+				//update view component
+				view.getLengthOfTheInputPassword().setText(getTextofInputPasswordLength());
+				
+			}
+			
+			@Override
+			public void insertUpdate(DocumentEvent e) {
+				// Set the length of the input password when the content of the textfield changes 
+				model.setInputPasswordLen(view.getTextField().getText().length());
+				//update view component
+				view.getLengthOfTheInputPassword().setText(getTextofInputPasswordLength());
+				
+			}
+			
+			@Override
+			public void changedUpdate(DocumentEvent e) {
+				// Set the length of the input password when the content of the textfield changes 
+				model.setInputPasswordLen(view.getTextField().getText().length());
+				//update view component
+				view.getLengthOfTheInputPassword().setText(getTextofInputPasswordLength());
+				
+			}
+		};
+		return documentListener;
 	}
 	/**
 	 * Check if a int is a letter
