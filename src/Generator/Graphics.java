@@ -12,8 +12,6 @@ import javax.swing.JTextField;
 import javax.swing.SpringLayout;
 
 import lombok.Data;
-import java.awt.event.InputMethodListener;
-import java.awt.event.InputMethodEvent;
 
 @Data
 public class Graphics {
